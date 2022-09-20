@@ -140,11 +140,12 @@ class YandexDisk:
 
     def upload_photo(self, replace=True):
         ya_disk._create_folder()
-        file_list = os.listdir("/Users/thunderouse/Downloads/Vk_backup")
+        path = os.path.expanduser("~/Downloads")
+        file_list = os.listdir(f"{path}/Vk_backup")
         headers = {'Content-Type': 'application/json', 'Accept': 'application/json',
                    'Authorization': f'OAuth {self.token}'}
         URL = "https://cloud-api.yandex.net/v1/disk/resources"
-        path_to_folder = "/Users/thunderouse/Downloads/Vk_backup/"
+        path_to_folder = f"{path}/Vk_backup/"
         print("Загружаем фото на Яндекс диск")
         for file in file_list:
             res = requests.get(f'{URL}/upload?path=Vk_backup/{file}&overwrite={replace}', headers=headers).json()
